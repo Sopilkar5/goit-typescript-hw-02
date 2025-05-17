@@ -10,31 +10,31 @@ interface ImageModalProps {
 }
 
 const ImageModal = ({ isOpen, image, onClose }: ImageModalProps) => {
-  if (!image) return null;
-
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen={isOpen && !!image} // Відкривати модальне вікно лише якщо isOpen true і image існує
       onRequestClose={onClose}
       className={styles.modal}
       overlayClassName={styles.overlay}
-      ariaHideApp={false}
     >
-      <div className={styles.modalContent} onClick={onClose}>
-        <img
-          src={image.urls.regular}
-          className={styles.image}
-          onClick={(e: React.MouseEvent<HTMLImageElement>) => e.stopPropagation()}
-        />
-        <div className={styles.info}>
-          <p className={styles.author}>
-            <strong>Author:</strong> {image.user.name}
-          </p>
-          <p className={styles.likes}>
-            <strong>Likes:</strong> {image.likes}
-          </p>
+      {image && (
+        <div className={styles.modalContent} onClick={onClose}>
+          <img
+            src={image.urls.regular}
+            className={styles.image}
+            onClick={(e: React.MouseEvent<HTMLImageElement>) => e.stopPropagation()}
+            alt={image.alt_description || 'Image'}
+          />
+          <div className={styles.info}>
+            <p className={styles.author}>
+              <strong>Автор:</strong> {image.user.name}
+            </p>
+            <p className={styles.likes}>
+              <strong>Лайки:</strong> {image.likes}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </Modal>
   );
 };

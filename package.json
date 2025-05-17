@@ -11,9 +11,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/lodash": "^4.17.16",
     "@types/node": "^22.15.18",
     "axios": "^1.9.0",
     "install": "^0.13.0",
+    "lodash": "^4.17.21",
     "npm": "^11.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

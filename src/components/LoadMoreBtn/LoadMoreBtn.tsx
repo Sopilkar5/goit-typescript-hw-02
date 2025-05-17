@@ -6,9 +6,11 @@ interface LoadMoreBtnProps {
 
 const LoadMoreBtn = ({ onClick }: LoadMoreBtnProps) => {
   return (
-    <button className={styles.loadMore} onClick={onClick}>
-      Load More
-    </button>
+    <div className={styles.wrapper}>
+      <button className={styles.button} onClick={onClick}>
+        Load More...
+      </button>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
-import { Toaster } from 'react-hot-toast';
 import ImageModal from './components/ImageModal/ImageModal';
 import Loader from './components/Loader/Loader';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
@@ -16,6 +16,7 @@ const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [modalImage, setModalImage] = useState<UnsplashImage | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (!query) return;
@@ -44,26 +45,32 @@ const App = () => {
     setError(false);
   };
 
+  const handleImageClick = (image: UnsplashImage): void => {
+    if (isModalOpen) return;
+    setModalImage(image);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = (): void => {
+    setIsModalOpen(false);
+    setModalImage(null);
+  };
+
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
-      {error && <ErrorMessage message="Failed to load images. Please try again." />}
+      {error && <ErrorMessage message="Не вдалося завантажити зображення. Спробуйте ще раз." />}
       {loading && images.length === 0 && <Loader center />}
-
-      <ImageGallery images={images} onImageClick={setModalImage} />
-      {loading && images.length > 0 && <Loader />}
-
+      <ImageGallery images={images} onImageClick={handleImageClick} />
+      {loading && images.length > 0 && <Loader />} {/* Без center */}
       {images.length > 0 && !loading && (
         <LoadMoreBtn onClick={() => setPage((p) => p + 1)} />
       )}
-
-      {modalImage && (
-        <ImageModal
-          isOpen={!!modalImage}
-          image={modalImage}
-          onClose={() => setModalImage(null)}
-        />
-      )}
+      <ImageModal
+        isOpen={isModalOpen}
+        image={modalImage}
+        onClose={handleModalClose}
+      />
       <Toaster />
     </>
   );
