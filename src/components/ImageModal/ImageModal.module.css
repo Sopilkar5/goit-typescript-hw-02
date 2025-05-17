@@ -1,0 +1,51 @@
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:  100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  max-width: 800px;
+  border: none;
+  outline: none;
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.info {
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgb(255, 255, 255);
+  border-radius: 8px;
+  text-align: center;
+  max-width: 100%;
+}
+
+.author, .likes {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+strong {
+  color: #fff;
+}
